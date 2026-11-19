@@ -89,7 +89,11 @@ function loadStorage(key, fallback) {
 }
 
 function saveStorage(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    // 浏览器禁用本地存储时，设置只在本次打开期间有效
+  }
 }
 
 function buildDefaultSharedState() {
