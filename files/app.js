@@ -172,6 +172,89 @@ function sanitizeBpm(value, fallback) {
   return Math.min(numeric, 240);
 }
 
+/* ---------- 真钢琴采样（Salamander Grand Piano, CC BY 3.0） ---------- */
+const PIANO_SAMPLE_NOTE_INDEX = { C: 0, "C#": 1, D: 2, "D#": 3, E: 4, F: 5, "F#": 6, G: 7, "G#": 8, A: 9, "A#": 10, B: 11 };
+
+function pianoSampleNameToMidi(name) {
+  const match = /^([A-G]#?)(\d)$/.exec(name);
+  if (!match) {
+    return null;
+  }
+  return (Number(match[2]) + 1) * 12 + PIANO_SAMPLE_NOTE_INDEX[match[1]];
+}
+
+function base64ToArrayBuffer(base64) {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let index = 0; index < binary.length; index += 1) {
+    bytes[index] = binary.charCodeAt(index);
+  }
+  return bytes.buffer;
+}
+
+const pianoSamplerCache = new WeakMap();
+
+// 解码全部采样；没有采样文件或解码失败时返回 null，调用方改用合成音色
+function loadPianoSampler(audioContext) {
+  if (pianoSamplerCache.has(audioContext)) {
+    return pianoSamplerCache.get(audioContext);
+  }
+
+  const source = window.PIANO_SAMPLES;
+  const promise = !source
+    ? Promise.resolve(null)
+    : Promise.all(
+        Object.entries(source).map(([name, base64]) => {
+          const midi = pianoSampleNameToMidi(name);
+          return new Promise((resolve) => {
+            try {
+              audioContext.decodeAudioData(
+                base64ToArrayBuffer(base64),
+                (buffer) => resolve(midi === null ? null : { midi, buffer }),
+                () => resolve(null),
+              );
+            } catch (error) {
+              resolve(null);
+            }
+          });
+        }),
+      ).then((entries) => {
+        const samples = entries.filter(Boolean).sort((a, b) => a.midi - b.midi);
+        return samples.length ? samples : null;
+      });
+
+  pianoSamplerCache.set(audioContext, promise);
+  return promise;
+}
+
+function playPianoSample(audioContext, samples, midi, destination, startTime, options = {}) {
+  let nearest = samples[0];
+  samples.forEach((sample) => {
+    if (Math.abs(sample.midi - midi) < Math.abs(nearest.midi - midi)) {
+      nearest = sample;
+    }
+  });
+
+  const source = audioContext.createBufferSource();
+  const gain = audioContext.createGain();
+  const level = options.gain ?? 1;
+  const duration = Math.min(options.duration ?? nearest.buffer.duration, nearest.buffer.duration);
+
+  source.buffer = nearest.buffer;
+  source.playbackRate.setValueAtTime(2 ** ((midi - nearest.midi) / 12), startTime);
+  gain.gain.setValueAtTime(level, startTime);
+  if (duration < nearest.buffer.duration) {
+    gain.gain.setValueAtTime(level, startTime + Math.max(0, duration - 0.12));
+    gain.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+  }
+
+  source.connect(gain);
+  gain.connect(destination);
+  source.start(startTime);
+  source.stop(startTime + duration + 0.02);
+  return source;
+}
+
 function sanitizeMeasureCount(value, fallback) {
   const numeric = Number.parseInt(String(value), 10);
 
@@ -2137,8 +2220,15 @@ function mountModePage(sharedState) {
       }
       keyboardAudio.audioContext = new Context();
       keyboardAudio.masterGain = keyboardAudio.audioContext.createGain();
-      keyboardAudio.masterGain.gain.value = 0.28;
-      keyboardAudio.masterGain.connect(keyboardAudio.audioContext.destination);
+      keyboardAudio.masterGain.gain.value = 0.9;
+      // 压缩器防止连续快速点键时破音
+      keyboardAudio.compressor = keyboardAudio.audioContext.createDynamicsCompressor();
+      keyboardAudio.compressor.threshold.value = -10;
+      keyboardAudio.compressor.knee.value = 8;
+      keyboardAudio.compressor.ratio.value = 4;
+      keyboardAudio.masterGain.connect(keyboardAudio.compressor);
+      keyboardAudio.compressor.connect(keyboardAudio.audioContext.destination);
+      keyboardAudio.samplesPromise = loadPianoSampler(keyboardAudio.audioContext);
     }
 
     if (keyboardAudio.audioContext.state === "suspended") {
@@ -2148,7 +2238,17 @@ function mountModePage(sharedState) {
 
   const playKeyboardPitch = async (absolute) => {
     await ensureKeyboardAudio();
+    const samples = await keyboardAudio.samplesPromise;
     const startTime = keyboardAudio.audioContext.currentTime + 0.01;
+
+    if (samples) {
+      trackKeyboardAudioNode(
+        playPianoSample(keyboardAudio.audioContext, samples, absolute + 12, keyboardAudio.masterGain, startTime),
+      );
+      return;
+    }
+
+    // 没有采样时退回合成音色（音量已提高）
     const frequency = 440 * (2 ** ((absolute - 57) / 12));
     const envelope = keyboardAudio.audioContext.createGain();
     const toneFilter = keyboardAudio.audioContext.createBiquadFilter();
@@ -2163,8 +2263,8 @@ function mountModePage(sharedState) {
     toneFilter.Q.value = 0.9;
 
     envelope.gain.setValueAtTime(0.0001, startTime);
-    envelope.gain.linearRampToValueAtTime(0.72, startTime + 0.012);
-    envelope.gain.exponentialRampToValueAtTime(0.24, startTime + 0.16);
+    envelope.gain.linearRampToValueAtTime(2.2, startTime + 0.012);
+    envelope.gain.exponentialRampToValueAtTime(0.75, startTime + 0.16);
     envelope.gain.exponentialRampToValueAtTime(0.0001, startTime + 0.9);
 
     toneFilter.connect(envelope);

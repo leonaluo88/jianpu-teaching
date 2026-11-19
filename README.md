@@ -13,4 +13,5 @@
 - `files/ear-training.html`：视唱练耳
 - `files/guide.html`：老师版使用说明
 - `files/app.js`、`files/styles.css`：三页共享的逻辑与样式
+- `files/piano-samples.js`：调式教学钢琴采样（Salamander Grand Piano by Alexander Holm, CC BY 3.0）
 - `files/assets/fonts/BravuraText.woff2`：音符图形字体
