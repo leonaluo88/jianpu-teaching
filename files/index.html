@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台｜调式教学</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="mode">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="topbar__brand" href="./index.html">简谱教学台</a>
+        <nav class="page-switch" aria-label="页面切换">
+            <a class="switch-link is-active" href="./index.html" aria-current="page">调式教学</a>
+            <a class="switch-link" href="./rhythm.html">节奏教学</a>
+            <a class="switch-link" href="./ear-training.html">视唱练耳</a>
+        </nav>
+        <div class="topbar__settings">
+          <label class="topbar-field">
+            <span>拍号</span>
+            <span class="meter-inputs">
+              <input data-meter-top type="number" inputmode="numeric" min="1" max="16" aria-label="每小节几拍" />
+              <span>/</span>
+              <input data-meter-bottom type="number" inputmode="numeric" min="1" max="16" aria-label="以几分音符为一拍" />
+            </span>
+          </label>
+          <label class="topbar-field">
+            <span>1 =</span>
+            <input class="tonic-input" data-tonic-input type="text" maxlength="8" placeholder="C / #F / Bb" autocomplete="off" aria-label="调号" />
+          </label>
+          <button class="ghost-button ghost-button--compact" type="button" data-reset-defaults>恢复默认</button>
+          <a class="topbar__help" href="./guide.html" title="使用说明">?</a>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="card card--feature card--wide card--keyboard">
+
+          <div class="mode-board">
+            <div class="mode-board__tools">
+              <label class="topbar-field octave-inline">
+                <span>显示几个八度</span>
+                <input
+                  data-octave-count
+                  type="number"
+                  inputmode="numeric"
+                  min="2"
+                  max="7"
+                  step="1"
+                />
+              </label>
+              <span class="badge badge--compact">显示范围 <strong data-octave-range>C3 - B5</strong></span>
+              <label class="toggle-card toggle-card--compact">
+                <input type="checkbox" data-mode-key-audio-toggle />
+                <span>点键盘发声</span>
+              </label>
+              <span class="play-pill mode-board__status" data-zoom-status>全 88 键矢量钢琴</span>
+            </div>
+            <div class="mode-board__viewport" data-mode-board-viewport>
+              <div class="mode-board__track" data-mode-board-track></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card card--wide">
+          <div class="section-head">
+            <div>
+              <h2>随机抽音练习</h2>
+            </div>
+            <button class="ghost-button" type="button" data-generate-degree>换一个音级</button>
+          </div>
+
+          <div class="practice-board">
+            <div class="practice-prompt">
+              <span class="practice-label">请学生唱出</span>
+              <strong data-random-degree>5</strong>
+            </div>
+            <div class="practice-answer">
+              <p>对应唱名</p>
+              <strong data-random-solfege>so</strong>
+            </div>
+            <div class="practice-answer">
+              <p>在当前调号里对应</p>
+              <strong data-random-pitch>G</strong>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台｜使用说明</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #ded1c6;
+        --bg-deep: #c9aeb4;
+        --panel: rgba(250, 243, 240, 0.9);
+        --text: #4f3947;
+        --muted: #8c7281;
+        --accent: #a77693;
+        --accent-light: #c79db0;
+        --accent-deep: #7e5a6f;
+        --line: rgba(103, 77, 90, 0.14);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        color: var(--text);
+        line-height: 1.75;
+        background: linear-gradient(160deg, var(--bg) 0%, #e8ddd7 54%, var(--bg-deep) 100%) fixed;
+      }
+      .shell { width: min(880px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 56px; }
+      .bar {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+        padding: 12px 14px 12px 22px; border-radius: 999px; background: var(--panel);
+        border: 1px solid rgba(255,255,255,.5); box-shadow: 0 24px 80px rgba(79,57,71,.12);
+      }
+      .bar strong { font-family: "Noto Serif SC", "Songti SC", "PingFang SC", "Microsoft YaHei", serif; font-size: 1.35rem; }
+      .bar nav { display: flex; gap: 6px; flex-wrap: wrap; }
+      .bar a, .btn {
+        text-decoration: none; color: var(--text); font-weight: 700; padding: 8px 16px; border-radius: 999px;
+        border: 1px solid var(--line); background: rgba(255,255,255,.55);
+      }
+      .bar a:hover { background: rgba(167,118,147,.14); }
+      .card {
+        margin-top: 18px; padding: 26px 30px; border-radius: 26px; background: var(--panel);
+        border: 1px solid rgba(255,255,255,.5); box-shadow: 0 24px 80px rgba(79,57,71,.1);
+      }
+      h1, h2 { font-family: "Noto Serif SC", "Songti SC", "PingFang SC", "Microsoft YaHei", serif; margin: 0 0 10px; }
+      h1 { font-size: 1.9rem; }
+      h2 { font-size: 1.4rem; display: flex; align-items: center; gap: 12px; }
+      h2 .open { margin-left: auto; font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; font-size: .9rem; }
+      h3 { margin: 18px 0 6px; font-size: 1.05rem; color: var(--accent-deep); }
+      p { margin: 0 0 10px; }
+      ol, ul { margin: 0 0 10px; padding-left: 1.4em; }
+      li { margin: 3px 0; }
+      .muted { color: var(--muted); }
+      kbd, .tag {
+        display: inline-block; padding: 0 8px; border-radius: 8px; font-family: inherit; font-weight: 700;
+        background: rgba(167,118,147,.12); color: var(--accent-deep); font-size: .95em; line-height: 1.6;
+      }
+      details {
+        margin-top: 16px; border-top: 1px dashed var(--line); padding-top: 12px;
+      }
+      summary { cursor: pointer; font-weight: 700; color: var(--accent-deep); }
+      details[open] summary { margin-bottom: 6px; }
+      table { border-collapse: collapse; width: 100%; margin: 6px 0 10px; font-size: .95rem; }
+      td, th { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+      th { color: var(--muted); font-weight: 700; }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <div class="bar">
+        <strong>简谱教学台 · 使用说明</strong>
+        <nav>
+          <a href="./index.html">调式教学</a>
+          <a href="./rhythm.html">节奏教学</a>
+          <a href="./ear-training.html">视唱练耳</a>
+        </nav>
+      </div>
+
+      <section class="card">
+        <h1>开始之前</h1>
+        <p><strong>在线版：</strong>直接打开网址即可，手机、电脑都能用，建议收藏。</p>
+        <p><strong>离线版（压缩包）：</strong></p>
+        <ol>
+          <li>先<strong>解压</strong>压缩包（直接在压缩包里双击可能打不开）。</li>
+          <li>打开解压出来的文件夹，双击 <kbd>双击打开-简谱教学台.html</kbd>。</li>
+          <li>用 Chrome、Edge 或 Safari 打开即可，<strong>不需要联网</strong>。</li>
+        </ol>
+        <p class="muted">文件夹里的 <span class="tag">files</span> 是网页本身，不用打开，也不要移动或改名；整个文件夹可以一起复制到 U 盘或别的电脑。</p>
+        <h3>页面顶部（三页都有）</h3>
+        <ul>
+          <li><strong>页面切换</strong>：调式教学 / 节奏教学 / 视唱练耳。</li>
+          <li><strong>拍号</strong>：例如 4 / 4、3 / 4。三个页面共用，改一处，其他两页同步。</li>
+          <li><strong>1 =</strong>：调号，只在调式教学页出现，可输入 <span class="tag">C</span> <span class="tag">D</span> <span class="tag">#F</span> <span class="tag">Bb</span> 等。</li>
+          <li><strong>恢复默认</strong>：三页的设置一起回到初始状态（见最下方“默认值”）。</li>
+          <li><strong>?</strong>：打开本说明。</li>
+        </ul>
+        <p class="muted">设置会自动记住，下次打开还是上次的状态。</p>
+      </section>
+
+      <section class="card">
+        <h2>调式教学 <a class="btn open" href="./index.html">打开</a></h2>
+        <p>把 <strong>1–7</strong>、<strong>Do Re Mi Fa So La Si</strong> 和钢琴键对应起来，适合示范调式与移调。</p>
+        <h3>怎么用</h3>
+        <ol>
+          <li>在顶部 <kbd>1 =</kbd> 输入调号，例如 <span class="tag">G</span>，钢琴上的 1–7 会自动移到新调的位置（带动画）。</li>
+          <li>钢琴上方的 <kbd>显示几个八度</kbd> 可调 2–7 个八度。</li>
+          <li>勾选 <kbd>点键盘发声</kbd> 后，点钢琴上任意键会发出声音。</li>
+          <li>下方 <kbd>随机抽音练习</kbd>：点 <kbd>换一个音级</kbd> 随机出一个数字，让学生唱，旁边显示唱名和当前调里的音名。</li>
+        </ol>
+        <details>
+          <summary>显示细节</summary>
+          <ul>
+            <li>键盘是完整 88 键，按八度数自动放大到中间区域；以 <strong>4 (Fa)</strong> 为视觉中心展开。</li>
+            <li>钢琴左侧两行标注：音级（Scale Degree）、唱名（Solfege）；中央 C 上方标注“音名（Note Name）”，说明字母一行是音名。</li>
+            <li>黑键标两行：上面是 ♯ 名称（如 ♯C），下面是 ♭ 名称（如 ♭D）。</li>
+            <li>上方圆形数字按白键间距等距排列；Do 的连线始终垂直，落在黑键上的音用斜线指向实际键位。</li>
+            <li>换调动画分两步：先移动连线下端到新键位，再平移、缩放键盘。</li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>节奏教学 <a class="btn open" href="./rhythm.html">打开</a></h2>
+        <p>用音符拼出几小节节奏，配合节拍器和“V 形”动画演示每拍里的时值。</p>
+        <h3>怎么用</h3>
+        <ol>
+          <li>设置 <kbd>BPM</kbd>（速度）和 <kbd>展示几个小节</kbd>（1–8）。</li>
+          <li>选择编辑范围：<kbd>全局</kbd>（按顺序从头往后填）或 <kbd>第 n 小节</kbd>（从该小节开始填）。也可以直接点下方某个小节的 V 形卡片。</li>
+          <li>点音符卡片（全音符、二分、四分……）把它加进去。</li>
+          <li>在“已用”区：<strong>点一下删除</strong>某个音符，<strong>拖动</strong>可调整顺序。</li>
+          <li>点 <kbd>播放节拍器</kbd>，节拍器响起，V 形描线随节奏推进，整段循环播放。</li>
+        </ol>
+        <details>
+          <summary>规则与显示细节</summary>
+          <ul>
+            <li>每小节的 V 数量 = 拍号的分子（4/4 显示 4 个 V，3/4 显示 3 个），不会因为细分音符而增加；一拍里的细分用不同颜色表示，每个音符起点在 V 上打点。</li>
+            <li>音符可以跨小节：例如最后一拍放二分音符，会自然延续到下一小节开头。剩余空间不够放的音符会变灰不可点。</li>
+            <li><kbd>清空</kbd> / <kbd>补满</kbd>只作用于当前编辑范围；补满用当前拍号的一拍来填。</li>
+            <li>V 形区可切换“一行四个 / 一行两个”小节，默认一行四个。</li>
+            <li>“已用”区可 <kbd>收起</kbd>，也可 <kbd>隐藏名称</kbd>（只留音符图形和拍数，投屏时更干净）。</li>
+            <li>节拍器声音按 BPM 实时生成，不依赖音频文件。</li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>视唱练耳 <a class="btn open" href="./ear-training.html">打开</a></h2>
+        <p>单音、双音、和弦、随机旋律与节奏的听辨练习。本页固定按 <strong>1=C</strong> 出题。</p>
+        <h3>怎么用</h3>
+        <ol>
+          <li>选题型：<kbd>听单音</kbd> <kbd>听双音</kbd> <kbd>听和弦</kbd> <kbd>随机旋律</kbd>。</li>
+          <li>点 <kbd>播放</kbd>：先响基准音 <strong>A3 (la)</strong>，再响题目。可反复播放。</li>
+          <li>学生作答后点 <kbd>显示答案</kbd>；点 <kbd>下一题</kbd> 换题。</li>
+        </ol>
+        <h3>各题型的开关</h3>
+        <table>
+          <tr><th>题型</th><th>可用开关</th></tr>
+          <tr><td>听单音 / 听双音</td><td>打开黑键</td></tr>
+          <tr><td>听和弦</td><td>自然音三和弦（开：只出自然音三和弦；关：随机 3 个音，此时“打开黑键”生效）</td></tr>
+          <tr><td>随机旋律</td><td>BPM、出题小节数、最小拆分、打开随机节奏、打开黑键、仅听节奏</td></tr>
+        </table>
+        <details>
+          <summary>随机旋律的出题规则</summary>
+          <ul>
+            <li>随机旋律和仅听节奏都会先给 <strong>1 小节预备拍</strong>。</li>
+            <li><kbd>打开随机节奏</kbd> 关：按拍均分出旋律；开：按拍号和“最小拆分”生成随机节奏。</li>
+            <li><kbd>最小拆分</kbd> 限制节奏最细到几分音符，只有打开随机节奏或仅听节奏时才可用。附点音符同样受限：最小拆分到八分音符时才会出现附点四分；到十六分音符时才会出现附点八分。</li>
+            <li><kbd>仅听节奏</kbd>：所有音都用 A3，并垫上节拍器，只练节奏；开启时会自动关闭并锁定“打开随机节奏”和“打开黑键”。</li>
+            <li>答案按小节显示：左边是音符卡片，右边是对应的简谱写法（数字、附点、增时线、减时线）。仅听节奏模式下数字显示为 <strong>x</strong>。</li>
+          </ul>
+        </details>
+      </section>
+
+      <section class="card">
+        <h2>默认值</h2>
+        <p>点 <kbd>恢复默认</kbd> 后：</p>
+        <ul>
+          <li>拍号 4/4，调号 1=C</li>
+          <li>调式教学：显示 2 个八度，点键盘发声关闭</li>
+          <li>节奏教学：BPM 120，展示 2 个小节</li>
+          <li>视唱练耳：BPM 120，出题 2 小节，最小拆分到八分音符；打开随机节奏、打开黑键、仅听节奏都不勾选</li>
+        </ul>
+        <h3>没有声音？</h3>
+        <ul>
+          <li>检查电脑音量和浏览器标签页是否被静音。</li>
+          <li>浏览器要求先点击页面才能发声：先点一下页面上的按钮再试。</li>
+        </ul>
+      </section>
+    </div>
+  </body>
+</html>

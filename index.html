@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台</title>
+    <link rel="icon" href="./files/favicon.svg" type="image/svg+xml" />
+    <style>
+      :root {
+        --bg: #ded1c6;
+        --bg-deep: #c9aeb4;
+        --panel: rgba(250, 243, 240, 0.9);
+        --text: #4f3947;
+        --muted: #8c7281;
+        --accent: #a77693;
+        --accent-light: #c79db0;
+        --accent-deep: #7e5a6f;
+        --line: rgba(103, 77, 90, 0.14);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 28px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top left, rgba(167, 118, 147, 0.22), transparent 36%),
+          radial-gradient(circle at 92% 12%, rgba(197, 146, 171, 0.24), transparent 26%),
+          linear-gradient(160deg, var(--bg) 0%, #e8ddd7 54%, var(--bg-deep) 100%);
+      }
+      main {
+        width: min(820px, 100%);
+        padding: 40px;
+        border-radius: 30px;
+        background: var(--panel);
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        box-shadow: 0 24px 80px rgba(79, 57, 71, 0.14);
+        text-align: center;
+      }
+      h1 {
+        margin: 0 0 6px;
+        font-family: "Noto Serif SC", "Songti SC", "PingFang SC", "Microsoft YaHei", serif;
+        font-size: clamp(2.2rem, 5vw, 3.2rem);
+      }
+      .sub { margin: 0 0 30px; color: var(--muted); font-size: 1.05rem; }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+      }
+      .go {
+        display: grid;
+        gap: 6px;
+        padding: 26px 18px;
+        border-radius: 22px;
+        text-decoration: none;
+        color: #fdf8f6;
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+        box-shadow: 0 16px 30px rgba(167, 118, 147, 0.28);
+        transition: transform 160ms ease, box-shadow 160ms ease;
+      }
+      .go:hover { transform: translateY(-3px); box-shadow: 0 22px 36px rgba(167, 118, 147, 0.34); }
+      .go strong { font-size: 1.35rem; }
+      .go span { font-size: 0.92rem; opacity: 0.9; }
+      .go--deep { background: linear-gradient(135deg, var(--accent-deep) 0%, var(--accent) 100%); }
+      .foot {
+        margin-top: 28px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px 18px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .foot a {
+        color: var(--accent-deep);
+        font-weight: 700;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.55);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>简谱教学台</h1>
+      <p class="sub">选择要上的内容，点一下就能开始</p>
+      <div class="grid">
+        <a class="go" href="./files/index.html"><strong>调式教学</strong><span>1–7 · 唱名 · 钢琴键位</span></a>
+        <a class="go" href="./files/rhythm.html"><strong>节奏教学</strong><span>拼节奏 · 节拍器 · V 形动画</span></a>
+        <a class="go go--deep" href="./files/ear-training.html"><strong>视唱练耳</strong><span>单音 · 和弦 · 随机旋律</span></a>
+      </div>
+      <div class="foot">
+        <span>进入后，可以在页面顶部随时切换</span>
+        <a href="./files/guide.html">查看使用说明</a>
+      </div>
+    </main>
+  </body>
+</html>

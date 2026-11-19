@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台｜视唱练耳</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="ear">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="topbar__brand" href="./index.html">简谱教学台</a>
+        <nav class="page-switch" aria-label="页面切换">
+            <a class="switch-link" href="./index.html">调式教学</a>
+            <a class="switch-link" href="./rhythm.html">节奏教学</a>
+            <a class="switch-link is-active" href="./ear-training.html" aria-current="page">视唱练耳</a>
+        </nav>
+        <div class="topbar__settings">
+          <label class="topbar-field">
+            <span>拍号</span>
+            <span class="meter-inputs">
+              <input data-meter-top type="number" inputmode="numeric" min="1" max="16" aria-label="每小节几拍" />
+              <span>/</span>
+              <input data-meter-bottom type="number" inputmode="numeric" min="1" max="16" aria-label="以几分音符为一拍" />
+            </span>
+          </label>
+          <span class="badge badge--compact">本页固定 1=C</span>
+          <button class="ghost-button ghost-button--compact" type="button" data-reset-defaults>恢复默认</button>
+          <a class="topbar__help" href="./guide.html" title="使用说明">?</a>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="card card--feature card--wide">
+
+          <div class="exercise-picker" role="tablist" aria-label="练耳类型">
+            <button class="mode-chip is-selected" type="button" data-ear-mode="single">听单音</button>
+            <button class="mode-chip" type="button" data-ear-mode="double">听双音</button>
+            <button class="mode-chip" type="button" data-ear-mode="chord">听和弦</button>
+            <button class="mode-chip" type="button" data-ear-mode="melody">随机旋律</button>
+          </div>
+
+          <div class="ear-toolbar">
+            <button class="ghost-button" type="button" data-ear-play>播放</button>
+            <button class="ghost-button" type="button" data-ear-replay>下一题</button>
+            <span class="play-pill" data-ear-status>准备中</span>
+          </div>
+
+          <div class="melody-controls is-hidden" data-melody-controls>
+            <div class="melody-controls__top">
+              <label class="field bpm-field is-hidden" data-ear-bpm-field>
+                <span>随机旋律 BPM</span>
+                <input
+                  data-ear-bpm
+                  type="number"
+                  inputmode="numeric"
+                  min="30"
+                  max="240"
+                  step="1"
+                />
+              </label>
+              <label class="field bpm-field is-hidden" data-ear-measure-field>
+                <span>出题小节数</span>
+                <input
+                  data-ear-measure-count
+                  type="number"
+                  inputmode="numeric"
+                  min="1"
+                  max="8"
+                  step="1"
+                />
+              </label>
+              <label class="field bpm-field is-hidden" data-ear-min-subdivision-field>
+                <span>最小拆分</span>
+                <select data-ear-min-subdivision>
+                  <option value="quarter">到四分音符</option>
+                  <option value="eighth">到八分音符</option>
+                  <option value="sixteenth">到十六分音符</option>
+                </select>
+              </label>
+
+              <div class="melody-switches">
+                <label class="toggle-card is-hidden" data-ear-random-rhythm-card>
+                  <input type="checkbox" data-ear-random-rhythm />
+                  <span>打开随机节奏</span>
+                </label>
+                <label class="toggle-card is-hidden" data-ear-natural-chord-card>
+                  <input type="checkbox" data-ear-natural-chord />
+                  <span>自然音三和弦</span>
+                </label>
+                <label class="toggle-card is-hidden" data-ear-black-keys-card>
+                  <input type="checkbox" data-ear-black-keys />
+                  <span>打开黑键</span>
+                </label>
+                <label class="toggle-card is-hidden" data-ear-rhythm-only-card>
+                  <input type="checkbox" data-ear-rhythm-only />
+                  <span>仅听节奏</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="ear-reference-card">
+            <span>固定基准音</span>
+            <strong>A3 (la)</strong>
+          </div>
+        </section>
+
+        <section class="card card--wide">
+          <div class="section-head">
+            <div>
+              <h2>答案区</h2>
+            </div>
+            <button class="ghost-button" type="button" data-answer-toggle>显示答案</button>
+          </div>
+
+          <div class="answer-panel">
+            <div class="answer-panel__body is-hidden" data-answer-body>
+              <strong data-answer-title>等待生成题目</strong>
+              <p data-answer-detail>点击左侧“播放”，系统会先出 A3，再出听辨内容。</p>
+              <div class="jianpu-answer is-hidden" data-answer-notation></div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

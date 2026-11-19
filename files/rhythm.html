@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台｜节奏教学</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="rhythm">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="topbar__brand" href="./index.html">简谱教学台</a>
+        <nav class="page-switch" aria-label="页面切换">
+            <a class="switch-link" href="./index.html">调式教学</a>
+            <a class="switch-link is-active" href="./rhythm.html" aria-current="page">节奏教学</a>
+            <a class="switch-link" href="./ear-training.html">视唱练耳</a>
+        </nav>
+        <div class="topbar__settings">
+          <label class="topbar-field">
+            <span>拍号</span>
+            <span class="meter-inputs">
+              <input data-meter-top type="number" inputmode="numeric" min="1" max="16" aria-label="每小节几拍" />
+              <span>/</span>
+              <input data-meter-bottom type="number" inputmode="numeric" min="1" max="16" aria-label="以几分音符为一拍" />
+            </span>
+          </label>
+
+          <button class="ghost-button ghost-button--compact" type="button" data-reset-defaults>恢复默认</button>
+          <a class="topbar__help" href="./guide.html" title="使用说明">?</a>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="card card--feature card--wide card--rhythm-studio">
+
+          <div class="rhythm-toolbar">
+            <div class="rhythm-toolbar__group rhythm-toolbar__group--transport">
+              <label class="field bpm-field">
+                <span>BPM</span>
+                <input
+                  data-bpm-input
+                  type="number"
+                  inputmode="numeric"
+                  min="30"
+                  max="240"
+                  step="1"
+                />
+              </label>
+              <button class="ghost-button" type="button" data-play-toggle>播放节拍器</button>
+              <span class="play-pill" data-play-status>已停止</span>
+            </div>
+
+            <div class="rhythm-toolbar__group">
+              <label class="field measure-count-field">
+                <span>展示几个小节</span>
+                <input
+                  data-measure-count-input
+                  type="number"
+                  inputmode="numeric"
+                  min="1"
+                  max="8"
+                  step="1"
+                />
+              </label>
+            </div>
+
+            <div class="rhythm-toolbar__group">
+              <button class="ghost-button" type="button" data-clear-pattern>清空当前范围</button>
+              <button class="ghost-button" type="button" data-fill-pattern>补满当前范围</button>
+            </div>
+          </div>
+
+          <div class="scope-card">
+            <div class="measure-card__head">
+              <span>你想在哪个小节输入音符呢？</span>
+              <strong data-rhythm-scope-label>当前为全局</strong>
+            </div>
+            <div class="scope-selector" data-scope-selector></div>
+          </div>
+
+          <div class="note-bank" data-note-bank></div>
+
+          <div class="measure-card">
+            <div class="measure-card__head">
+              <span data-pattern-title>来看看这些音符可以制造出怎样的节奏吧!</span>
+              <div class="measure-card__actions">
+                <button class="ghost-button ghost-button--compact" type="button" data-pattern-name-toggle>隐藏名称</button>
+                <button class="ghost-button ghost-button--compact" type="button" data-pattern-collapse>收起</button>
+                <strong data-pattern-progress>0 / 8 拍</strong>
+              </div>
+            </div>
+            <div class="progress-track">
+              <span data-pattern-fill></span>
+            </div>
+            <div class="pattern-strip" data-pattern-strip></div>
+          </div>
+
+          <div class="visualizer-card">
+            <div class="measure-card__head">
+              <span>V 形节奏动画</span>
+              <div class="measure-card__actions">
+                <div class="layout-toggle">
+                  <button class="layout-toggle__button is-active" type="button" data-visualizer-columns="4">一行四个</button>
+                  <button class="layout-toggle__button" type="button" data-visualizer-columns="2">一行两个</button>
+                </div>
+                <strong data-visualizer-summary>当前展示 2 个小节</strong>
+              </div>
+            </div>
+            <div class="visualizer-stage" data-rhythm-visualizer></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
