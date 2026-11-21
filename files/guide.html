@@ -73,6 +73,7 @@
           <a href="./index.html">调式教学</a>
           <a href="./rhythm.html">节奏教学</a>
           <a href="./ear-training.html">视唱练耳</a>
+          <a href="./jazz-chords.html">爵士和弦</a>
         </nav>
       </div>
 
@@ -88,10 +89,10 @@
         <p class="muted">文件夹里的 <span class="tag">files</span> 是网页本身，不用打开，也不要移动或改名；整个文件夹可以一起复制到 U 盘或别的电脑。</p>
         <h3>页面顶部（三页都有）</h3>
         <ul>
-          <li><strong>页面切换</strong>：调式教学 / 节奏教学 / 视唱练耳。</li>
-          <li><strong>拍号</strong>：例如 4 / 4、3 / 4。三个页面共用，改一处，其他两页同步。</li>
+          <li><strong>页面切换</strong>：调式教学 / 节奏教学 / 视唱练耳 / 爵士和弦。</li>
+          <li><strong>拍号</strong>：例如 4 / 4、3 / 4。调式、节奏、视唱练耳三页共用，改一处，其他页同步（爵士和弦页不用拍号）。</li>
           <li><strong>1 =</strong>：调号，只在调式教学页出现，可输入 <span class="tag">C</span> <span class="tag">D</span> <span class="tag">#F</span> <span class="tag">Bb</span> 等。</li>
-          <li><strong>恢复默认</strong>：三页的设置一起回到初始状态（见最下方“默认值”）。</li>
+          <li><strong>恢复默认</strong>：所有页面的设置一起回到初始状态（见最下方“默认值”）。</li>
           <li><strong>?</strong>：打开本说明。</li>
         </ul>
         <p class="muted">设置会自动记住，下次打开还是上次的状态。</p>
@@ -114,7 +115,7 @@
             <li>钢琴左侧两行标注：音级（Scale Degree）、唱名（Solfege）；中央 C 上方标注“音名（Note Name）”，说明字母一行是音名。</li>
             <li>黑键标两行：上面是 ♯ 名称（如 ♯C），下面是 ♭ 名称（如 ♭D）。</li>
             <li>上方圆形数字按白键间距等距排列；Do 的连线始终垂直，落在黑键上的音用斜线指向实际键位。</li>
-            <li>点键盘发声使用真钢琴录音采样：Salamander Grand Piano（Alexander Holm，CC BY 3.0 许可）。</li>
+            <li>调式教学的点键盘发声和爵士和弦页使用真钢琴录音采样：Salamander Grand Piano（Alexander Holm，CC BY 3.0 许可）。</li>
             <li>换调动画分两步：先移动连线下端到新键位，再平移、缩放键盘。</li>
           </ul>
         </details>
@@ -172,6 +173,35 @@
         </details>
       </section>
 
+      <section class="card" id="jazz">
+        <h2>爵士和弦 <a class="btn open" href="./jazz-chords.html">打开</a></h2>
+        <p>C 调上常用的爵士和弦，例如 Fmaj7（Fa La Do Mi）、Fdim7（Fa ♭La Si Re）。分<strong>听辨</strong>和<strong>测验</strong>两个模块，顶部可以切换。</p>
+        <h3>听辨</h3>
+        <ol>
+          <li>所有和弦按四组列出：自然七和弦、六和弦与九和弦、属七变化与副属和弦、借用与减七，共 23 个。</li>
+          <li>点任意和弦卡片，就会弹出这个和弦，上方键盘同时亮出按下的键。</li>
+          <li>勾选 <kbd>琶音模式</kbd>：从低到高快速逐个弹出；不勾选：所有音一起弹出。</li>
+        </ol>
+        <h3>测验（盲听）</h3>
+        <ol>
+          <li>勾选 <kbd>出题范围</kbd>（可多选，默认只考自然七和弦）。</li>
+          <li>点 <kbd>播放题目</kbd>，听完在心里说出是哪个和弦；可以反复点来重听。</li>
+          <li>点 <kbd>显示答案</kbd> 查看和弦名、唱名、简谱数字和音名，键盘上也会亮出来。</li>
+          <li>可以点 <kbd>我答对了</kbd> / <kbd>没答对</kbd> 自己记分；点 <kbd>下一题</kbd> 换题并直接播放。</li>
+          <li>测验同样有 <kbd>琶音模式</kbd>，和听辨的开关互不影响。勾选 <kbd>先弹 C 大三和弦作参考</kbd> 后，每次出题前先弹一下 C 大三和弦，帮助找调。</li>
+        </ol>
+        <details>
+          <summary>卡片上各行的意思</summary>
+          <ul>
+            <li>第一行：和弦名称，如 <span class="tag">Fmaj7</span>。</li>
+            <li>第二行：级数写法，如 <span class="tag">IVmaj7</span> 表示 C 调的四级大七和弦。</li>
+            <li>第三、四行：实际弹出的音，从低到高，分别用唱名和简谱数字写；♭ / ♯ 表示降半音 / 升半音。</li>
+            <li>第五行：音名。部分和弦下面还有一行补充说明（比如省略了哪个音、通常接到哪个和弦）。</li>
+            <li>每个和弦都用低音弹根音、上方弹和弦音的方式演奏；最低音在 F2 到 E3 之间。</li>
+          </ul>
+        </details>
+      </section>
+
       <section class="card">
         <h2>默认值</h2>
         <p>点 <kbd>恢复默认</kbd> 后：</p>
@@ -180,6 +210,7 @@
           <li>调式教学：显示 2 个八度，点键盘发声关闭</li>
           <li>节奏教学：BPM 120，展示 2 个小节</li>
           <li>视唱练耳：BPM 120，出题 2 小节，最小拆分到八分音符；打开随机节奏、打开黑键、仅听节奏都不勾选</li>
+          <li>爵士和弦：打开听辨模块；琶音模式、C 大三和弦参考都不勾选；测验只考自然七和弦；记分清零</li>
         </ul>
         <h3>没有声音？</h3>
         <ul>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简谱教学台｜爵士和弦</title>
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="jazz">
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="topbar__brand" href="./index.html">简谱教学台</a>
+        <nav class="page-switch" aria-label="页面切换">
+            <a class="switch-link" href="./index.html">调式教学</a>
+            <a class="switch-link" href="./rhythm.html">节奏教学</a>
+            <a class="switch-link" href="./ear-training.html">视唱练耳</a>
+            <a class="switch-link is-active" href="./jazz-chords.html" aria-current="page">爵士和弦</a>
+        </nav>
+        <div class="topbar__settings">
+          <span class="badge badge--compact">本页固定 1=C</span>
+          <button class="ghost-button ghost-button--compact" type="button" data-reset-defaults>恢复默认</button>
+          <a class="topbar__help" href="./guide.html#jazz" title="使用说明">?</a>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="card card--feature card--wide">
+          <div class="jazz-head">
+            <div class="exercise-picker" role="tablist" aria-label="爵士和弦模块">
+              <button class="mode-chip" type="button" role="tab" data-jazz-view="listen">听辨</button>
+              <button class="mode-chip" type="button" role="tab" data-jazz-view="quiz">测验</button>
+            </div>
+            <span class="play-pill" data-jazz-status>点任意和弦卡片即可听到</span>
+          </div>
+
+          <div class="jazz-keyboard" data-jazz-keyboard aria-hidden="true"></div>
+
+          <!-- 听辨：所有和弦罗列，点击演奏 -->
+          <div class="jazz-panel" data-jazz-panel="listen">
+            <div class="jazz-toolbar">
+              <label class="toggle-card toggle-card--compact">
+                <input type="checkbox" data-jazz-arpeggio="listen" />
+                <span>琶音模式</span>
+              </label>
+              <span class="jazz-hint">勾选后快速逐个弹出；不勾选则所有音一起弹出</span>
+            </div>
+            <div data-jazz-list></div>
+          </div>
+
+          <!-- 测验：盲听 -->
+          <div class="jazz-panel is-hidden" data-jazz-panel="quiz">
+            <div class="jazz-toolbar">
+              <span class="jazz-toolbar__label">出题范围</span>
+              <div class="jazz-groups" data-jazz-groups></div>
+            </div>
+            <div class="jazz-toolbar">
+              <label class="toggle-card toggle-card--compact">
+                <input type="checkbox" data-jazz-arpeggio="quiz" />
+                <span>琶音模式</span>
+              </label>
+              <label class="toggle-card toggle-card--compact">
+                <input type="checkbox" data-jazz-reference />
+                <span>先弹 C 大三和弦作参考</span>
+              </label>
+            </div>
+            <div class="jazz-toolbar jazz-toolbar--actions">
+              <button class="primary-button" type="button" data-jazz-play>播放题目</button>
+              <button class="ghost-button" type="button" data-jazz-reveal>显示答案</button>
+              <button class="ghost-button" type="button" data-jazz-next>下一题</button>
+            </div>
+
+            <div class="jazz-answer" data-jazz-answer>
+              <p class="jazz-answer__wait" data-jazz-answer-wait>点“播放题目”，听完在心里说出和弦，再点“显示答案”。</p>
+              <div class="is-hidden" data-jazz-answer-body>
+                <div class="jazz-answer__card" data-jazz-answer-card></div>
+                <div class="jazz-score">
+                  <span>自己判断：</span>
+                  <button class="ghost-button ghost-button--compact" type="button" data-jazz-mark="right">我答对了</button>
+                  <button class="ghost-button ghost-button--compact" type="button" data-jazz-mark="wrong">没答对</button>
+                </div>
+              </div>
+              <div class="jazz-tally">
+                <span data-jazz-tally>已答 0 题，答对 0 题</span>
+                <button class="text-button" type="button" data-jazz-tally-reset>清零</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./piano-samples.js"></script>
+    <script src="./app.js"></script>
+    <script src="./jazz.js"></script>
+  </body>
+</html>

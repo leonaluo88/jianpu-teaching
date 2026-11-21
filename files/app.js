@@ -124,6 +124,11 @@ function resetAllPersistentSettings() {
   saveStorage(MODE_STORAGE_KEY, buildDefaultModeState());
   saveStorage(RHYTHM_STORAGE_KEY, buildDefaultRhythmState());
   saveStorage(EAR_STORAGE_KEY, buildDefaultEarState());
+  try {
+    localStorage.removeItem("jianpu-teaching-jazz-state-v1");
+  } catch (error) {
+    // 本地存储不可用
+  }
 }
 
 function clamp(value, min, max) {

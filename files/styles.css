@@ -1817,3 +1817,287 @@ body::before {
     margin-left: 0;
   }
 }
+
+/* ---------- 爵士和弦页 ---------- */
+.jazz-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.jazz-head .exercise-picker {
+  margin: 0;
+}
+
+.jazz-keyboard {
+  position: relative;
+  height: 128px;
+  margin: 18px 0 6px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #3b2a35;
+  box-shadow: inset 0 0 0 1px rgba(var(--line-rgb), 0.18);
+}
+
+.jazz-key {
+  position: absolute;
+  top: 0;
+  transition: background-color 160ms ease;
+}
+
+.jazz-key--white {
+  height: 100%;
+  background: #fdf9f7;
+  border-right: 1px solid rgba(79, 57, 71, 0.18);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 6px;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.jazz-key--black {
+  height: 60%;
+  z-index: 1;
+  background: linear-gradient(180deg, #4b3843 0%, #2c1f27 100%);
+  border-radius: 0 0 5px 5px;
+}
+
+.jazz-key--white.is-active {
+  background: var(--accent-light);
+  color: #fff;
+}
+
+.jazz-key--black.is-active {
+  background: linear-gradient(180deg, var(--accent) 0%, var(--accent-deep) 100%);
+}
+
+.jazz-panel {
+  margin-top: 14px;
+}
+
+.jazz-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.jazz-toolbar__label {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.jazz-groups {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jazz-hint {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.jazz-group {
+  margin-top: 18px;
+}
+
+.jazz-group h3 {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.jazz-group h3 small {
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.jazz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+  gap: 12px;
+}
+
+.jazz-chord,
+.jazz-answer__card {
+  display: grid;
+  gap: 3px;
+  align-content: start;
+  text-align: left;
+  padding: 14px 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.6);
+  color: var(--text);
+  font: inherit;
+}
+
+.jazz-chord {
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.jazz-chord:hover {
+  transform: translateY(-2px);
+  border-color: rgba(var(--accent-rgb), 0.4);
+}
+
+.jazz-chord.is-playing {
+  background: rgba(var(--accent-rgb), 0.16);
+  border-color: rgba(var(--accent-rgb), 0.6);
+  box-shadow: 0 12px 24px rgba(var(--accent-rgb), 0.18);
+}
+
+.jazz-chord strong,
+.jazz-answer__card strong {
+  font-size: 1.45rem;
+  line-height: 1.2;
+}
+
+.jazz-chord__roman {
+  color: var(--accent-deep);
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.jazz-chord__solfege {
+  font-weight: 700;
+  font-size: 1.02rem;
+}
+
+.jazz-chord__degrees {
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.jazz-chord__notes,
+.jazz-chord__remark {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.primary-button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font: inherit;
+  font-weight: 800;
+  color: #fdf8f6;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  box-shadow: 0 14px 26px rgba(var(--accent-rgb), 0.24);
+}
+
+.primary-button:hover {
+  transform: translateY(-1px);
+}
+
+.text-button {
+  cursor: pointer;
+  border: 0;
+  background: none;
+  padding: 4px 6px;
+  font: inherit;
+  color: var(--accent-deep);
+  text-decoration: underline;
+}
+
+.jazz-answer {
+  margin-top: 6px;
+  padding: 18px;
+  border-radius: var(--radius-lg);
+  background: rgba(255, 255, 255, 0.42);
+  border: 1px dashed rgba(var(--accent-rgb), 0.3);
+}
+
+.jazz-answer__wait {
+  margin: 0;
+  color: var(--muted);
+}
+
+.jazz-answer__card {
+  max-width: 340px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.jazz-answer__card strong {
+  font-size: 2rem;
+}
+
+.jazz-score {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.jazz-score .ghost-button:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+
+.jazz-tally {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+@media (max-width: 640px) {
+  .topbar .page-switch {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .jazz-keyboard {
+    height: 92px;
+  }
+
+  .jazz-key--white span {
+    display: none;
+  }
+
+  .jazz-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* 爵士和弦：选中的模块更醒目；大屏时键盘跟随滚动 */
+.jazz-head .mode-chip.is-selected {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+  border-color: transparent;
+  color: #fdf8f6;
+  box-shadow: 0 12px 22px rgba(var(--accent-rgb), 0.22);
+}
+
+@media (min-width: 900px) and (min-height: 760px) {
+  .jazz-keyboard {
+    position: sticky;
+    top: 104px;
+    z-index: 10;
+    box-shadow: 0 14px 28px rgba(79, 57, 71, 0.16);
+  }
+}
+
+@media (max-width: 640px) {
+  .jazz-head .exercise-picker {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+  }
+}
