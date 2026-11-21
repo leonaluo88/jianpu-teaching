@@ -309,6 +309,12 @@ function parseTonicInput(rawValue) {
     return `${sharpPrefixMatch[1].toUpperCase()}#`;
   }
 
+  // 降号写在前面（如 bE、bB）也能识别
+  const flatPrefixMatch = cleaned.match(/^b([A-Ga-g])$/);
+  if (flatPrefixMatch) {
+    return `${flatPrefixMatch[1].toUpperCase()}b`;
+  }
+
   const suffixMatch = cleaned.match(/^([A-Ga-g])([#b]?)$/);
   if (suffixMatch) {
     return `${suffixMatch[1].toUpperCase()}${suffixMatch[2] || ""}`;
@@ -962,6 +968,14 @@ function formatOctaveRange(model) {
   return `C${model.startOctave} - B${model.endOctave}`;
 }
 
+// 黑键：顶部平直、底部两角圆润
+function buildBlackKeyPath(left, top, width, height) {
+  const radius = Math.min(4, width / 4);
+  const right = left + width;
+  const bottom = top + height;
+  return `M${left} ${top}H${right}V${bottom - radius}Q${right} ${bottom} ${right - radius} ${bottom}H${left + radius}Q${left} ${bottom} ${left} ${bottom - radius}Z`;
+}
+
 function buildPianoSceneMarkup(viewWidth, stageHeight, keyboardModel, sceneNotes, camera) {
   const keyboardTop = 188;
   const whiteHeight = 150;
@@ -1010,8 +1024,10 @@ function buildPianoSceneMarkup(viewWidth, stageHeight, keyboardModel, sceneNotes
         .filter(Boolean)
         .join(" ");
 
+      const groupState = highlight ? (highlight.isTonic ? " is-scale-note is-tonic-key" : " is-scale-note") : "";
+
       return `
-        <g class="piano-scene__key-group piano-scene__key-group--white" data-key-absolute="${key.absolute}" data-key-label="${key.label}">
+        <g class="piano-scene__key-group piano-scene__key-group--white${groupState}" data-key-absolute="${key.absolute}" data-key-label="${key.label}">
           <rect class="${classes}" x="${key.left}" y="${keyboardTop}" width="${key.width}" height="${whiteHeight}" rx="0" ry="0"></rect>
           <text class="piano-scene__key-label piano-scene__key-label--white" x="${key.center}" y="${keyboardTop + whiteHeight - 12}">${key.label}</text>
         </g>
@@ -1033,12 +1049,18 @@ function buildPianoSceneMarkup(viewWidth, stageHeight, keyboardModel, sceneNotes
 
       return `
         <g class="piano-scene__key-group piano-scene__key-group--black" data-key-absolute="${key.absolute}" data-key-label="${key.label}">
-          <rect class="${classes}" x="${key.left}" y="${keyboardTop}" width="${key.width}" height="${blackHeight}" rx="0" ry="0"></rect>
+          <path class="${classes}" d="${buildBlackKeyPath(key.left, keyboardTop, key.width, blackHeight)}"></path>
           ${buildPianoKeyLabelMarkup(key, keyboardTop, whiteHeight, blackHeight)}
         </g>
       `;
     })
     .join("");
+
+  const firstKey = keyboardModel.keys[0];
+  const lastKey = keyboardModel.keys[keyboardModel.keys.length - 1];
+  const keyboardBed = firstKey && lastKey
+    ? `<rect class="piano-scene__bed" x="${firstKey.left - 4}" y="${keyboardTop - 4}" width="${lastKey.left + lastKey.width - firstKey.left + 8}" height="${whiteHeight + 8}" rx="9" ry="9"></rect>`
+    : "";
 
   const rowLabels = [
     {
@@ -1096,33 +1118,17 @@ function buildPianoSceneMarkup(viewWidth, stageHeight, keyboardModel, sceneNotes
   return `
     <svg viewBox="0 0 ${viewWidth} ${stageHeight}" preserveAspectRatio="xMidYMid meet" aria-label="钢琴教学图" style="height:${stageHeight}px">
       <defs>
-        <linearGradient id="white-key-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#fdf8f6"></stop>
-          <stop offset="100%" stop-color="#e7dcd5"></stop>
-        </linearGradient>
-        <linearGradient id="white-key-central-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#fffdfc"></stop>
-          <stop offset="100%" stop-color="#dac6c8"></stop>
-        </linearGradient>
-        <linearGradient id="white-key-scale-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#fcf7f5"></stop>
-          <stop offset="100%" stop-color="#ead9e2"></stop>
-        </linearGradient>
-        <linearGradient id="white-key-tonic-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#fff7fb"></stop>
-          <stop offset="100%" stop-color="#e4c2d0"></stop>
-        </linearGradient>
         <linearGradient id="black-key-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#5a4351"></stop>
-          <stop offset="100%" stop-color="#2a1f29"></stop>
+          <stop offset="0%" stop-color="#4b3843"></stop>
+          <stop offset="100%" stop-color="#2c1f27"></stop>
         </linearGradient>
         <linearGradient id="black-key-scale-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#b38a9f"></stop>
-          <stop offset="100%" stop-color="#614654"></stop>
+          <stop offset="0%" stop-color="#b48399"></stop>
+          <stop offset="100%" stop-color="#7e5a6f"></stop>
         </linearGradient>
         <linearGradient id="black-key-tonic-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop offset="0%" stop-color="#d6adbd"></stop>
-          <stop offset="100%" stop-color="#845e70"></stop>
+          <stop offset="0%" stop-color="#8e6580"></stop>
+          <stop offset="100%" stop-color="#4f3947"></stop>
         </linearGradient>
         <linearGradient id="degree-badge-gradient" x1="0" x2="1" y1="0" y2="1">
           <stop offset="0%" stop-color="#a77693"></stop>
@@ -1130,6 +1136,7 @@ function buildPianoSceneMarkup(viewWidth, stageHeight, keyboardModel, sceneNotes
         </linearGradient>
       </defs>
       <g class="piano-scene__camera" transform="translate(${camera.panX} ${camera.panY}) scale(${camera.zoom})">
+        ${keyboardBed}
         ${whiteKeys}
         ${blackKeys}
       </g>
@@ -2119,7 +2126,7 @@ function mountSharedPanel(sharedState, onChange, options = {}) {
         tonicDraft = event.target.value;
         const normalized = normalizeTonicInput(event.target.value, "");
 
-        if (tonicToPitchClass(normalized) !== null) {
+        if (normalized && tonicToPitchClass(normalized) !== null) {
           updateSharedState({
             tonic: normalized,
           });
